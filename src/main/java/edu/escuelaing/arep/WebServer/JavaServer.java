@@ -2,7 +2,6 @@ package edu.escuelaing.arep.WebServer;
 
 import java.net.*;
 
-import edu.escuelaing.arep.Calculator.Calculator;
 
 import java.io.*;
 
@@ -60,22 +59,22 @@ public class JavaServer {
 
 
 
-        private static String respuesta(Double[] ordenados, Double sum) {
-            String ord ="[";
-            for (int i=0; i<ordenados.length;i++){
-                if(!(i==ordenados.length-1)){
-                    ord+=String.valueOf(ordenados[i])+",";
-                }
-                else{ ord+=String.valueOf(ordenados[i]);}
-            }
-            ord+="]";
-            System.out.println(ord);
+        // private static String respuesta(Double[] ordenados, Double sum) {
+        //     String ord ="[";
+        //     for (int i=0; i<ordenados.length;i++){
+        //         if(!(i==ordenados.length-1)){
+        //             ord+=String.valueOf(ordenados[i])+",";
+        //         }
+        //         else{ ord+=String.valueOf(ordenados[i]);}
+        //     }
+        //     ord+="]";
+        //     System.out.println(ord);
             
-            String suma = String.valueOf(sum);
-            String res ="DatosOrdenados\":"+ord+",\"Sumatoria\":"+suma;
-            return res;
+        //     String suma = String.valueOf(sum);
+        //     String res ="DatosOrdenados\":"+ord+",\"Sumatoria\":"+suma;
+        //     return res;
     
-        }
+        // }
 
         static int getPort() {
             if (System.getenv("PORT") != null) {

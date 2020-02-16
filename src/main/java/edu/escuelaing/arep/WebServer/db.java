@@ -34,7 +34,6 @@ public class db {
 
 	public String consultarUsuarios()  {
 		
-		boolean correcto=false;;
         //String SQL = "select exists(select 1 from users WHERE username=(?) and password = (?))";
         String SQL = "select * from users";
         String res ="Usuarios: ";
