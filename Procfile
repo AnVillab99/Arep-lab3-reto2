@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* edu.escuelaing.arep.WebServer.JavaServer
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* edu.escuelaing.arep.WebServer.JavaServer -p 5000

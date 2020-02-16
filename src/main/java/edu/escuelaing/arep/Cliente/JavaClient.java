@@ -16,7 +16,7 @@ public class JavaClient {
         int port = getPort();
         
         try {
-            echoSocket = new Socket("127.0.0.1", port);
+            echoSocket = new Socket("https://polar-fortress-20616.herokuapp.com",80);
             out = new PrintWriter(echoSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
         } catch (UnknownHostException e) {
