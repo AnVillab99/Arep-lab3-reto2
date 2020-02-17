@@ -6,10 +6,11 @@ calculator = (function () {
 
         ponerDatos: function (datos2) {
             var dat = JSON.parse(datos2);
+
         },
         obtenerDatos: function () {     
-            console.log("pdiendo") ;
-            calculadora.getResultadosR('/reto2/usuarios',null, calculator.ponerDatos);     
+            console.log("d");
+            window.location = window.location.href+"reto2/usuarios";
         }
     };  
 })();
@@ -24,7 +25,7 @@ calculadora = (function () {
             dataType: 'json',
             contentType: 'application/javascript',
             success: function(data){
-                console.log(data);
+                console.log("data :"+data);
                 callback(data);
             },
             error: function(data){

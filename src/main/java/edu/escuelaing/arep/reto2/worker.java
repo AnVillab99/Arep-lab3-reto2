@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 
 import com.google.gson.Gson;
 
+import org.apache.commons.io.FileUtils;
+
 public class worker implements Runnable {
 
     private Socket clientSocket = null;
@@ -59,8 +61,9 @@ public class worker implements Runnable {
                         // db.connect();
                         String[] users = db.consultarUsuarios();
                         String res = createResponse(users);
-
-                        respond(out, res, "200 OK");
+                        rFile = new File(res);
+                        //respond(out, res, "200 OK");
+                        respond(out, dataOut, rFile, "text/html", "200", res, outS);
 
                     }
                     String[] s = soportado(header[1]);
@@ -105,13 +108,25 @@ public class worker implements Runnable {
     }
 
     private static String createResponse(String[] usuarios) {
+        try{
+        File htmlTemplateFile = new File(ROOT+"/base.html");
+        String htmlString = FileUtils.readFileToString(htmlTemplateFile);
+        
         String ans = "";
         for (String s : usuarios) {
             ans += "<tr><td>" + s + "</td></tr>";
 
         }
+        htmlString = htmlString.replace("$body", ans);
+        File newHtmlFile = new File(ROOT+"/usuarios.html");
+        FileUtils.writeStringToFile(newHtmlFile, htmlString);
+        
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-        return ans;
+        return ROOT+"/usuarios.html";
 
     }
 
@@ -188,11 +203,11 @@ public class worker implements Runnable {
 
     private static void respond(PrintWriter out, String response, String code) {
         String header = "HTTP/1.1 " + code + "\r\n" + "Access-Control-Allow-Origin: *\r\n"
-                + "Content-type: application/json+\r\n";
+                + "Content-type: text/html+\r\n";
         Gson gson = new Gson();
         try {
             header += "\r\n";
-            System.out.println("respuesta "+gson.toJson(header));
+            System.out.println("respuesta "+gson.toJson(response));
             out.println(gson.toJson(header));
             out.println(response);
             out.flush();
