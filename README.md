@@ -27,10 +27,10 @@ To run this program on local, you need to run on console the weServer class (por
 
 
 index page  :
-![code db](https://github.com/AnVillab99/Arep-lab3-reto2/blob/master/resources/imgs/db.PNG)
+![code db](https://github.com/AnVillab99/Arep-lab3-reto2/blob/master/resources/img/db.PNG)
 
 Not found page :
-![works on page](https://github.com/AnVillab99/Arep-lab3-reto2/blob/master/resources/imgs/navegador.PNG)
+![works on page](https://github.com/AnVillab99/Arep-lab3-reto2/blob/master/resources/img/navegador.PNG)
 
 
 ## Design
