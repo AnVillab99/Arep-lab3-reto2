@@ -19,7 +19,10 @@ public class db {
 
 
 	public db(){}
-
+	/***
+	 * Creates the connection to the database
+	 * @return
+	 */
 	public static Connection connect() {
 		conn = null;
 		try {
@@ -35,6 +38,10 @@ public class db {
 		return conn;
 	}
 
+	/**
+	 * get the users info from the database
+	 * @return String[] the array of user names
+	 */
 	public static String[] consultarUsuarios() {
 		ResultSet rs;
 		// String SQL = "select exists(select 1 from users WHERE username=(?) and

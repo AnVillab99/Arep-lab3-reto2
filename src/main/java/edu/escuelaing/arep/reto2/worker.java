@@ -18,6 +18,9 @@ import com.google.gson.Gson;
 
 import org.apache.commons.io.FileUtils;
 
+/**
+ * This class manage each petition to the server
+ */
 public class worker implements Runnable {
 
     private Socket clientSocket = null;
@@ -27,11 +30,17 @@ public class worker implements Runnable {
     static final String METHOD_NOT_ALLOWED = "/NOT_SUPPORTED.html";
     static final String UNSUPPORTED_MEDIA_TYPE = "/NOT_SUPPORTED_MEDIA.html";
 
-    public worker(Socket clntSocket, String pet) {
+    /**
+     * Worker constructor. 
+     * @param clntSocket client socket
+     */
+    public worker(Socket clntSocket) {
         clientSocket = clntSocket;
 
     }
-
+    /**
+     * Run method of the worker, here it manages the petition
+     */
     @Override
     public void run() {
         try {
@@ -107,6 +116,11 @@ public class worker implements Runnable {
 
     }
 
+    /**
+     * This method crates the response with the info of the db on a html
+     * @param usuarios the array of info to put on a html
+     * @return the path of the html with the info
+     */
     private static String createResponse(String[] usuarios) {
         try{
         File htmlTemplateFile = new File(ROOT+"/base.html");
@@ -130,6 +144,11 @@ public class worker implements Runnable {
 
     }
 
+    /**
+     * checks if the petition is supported, checks for the file type 
+     * @param peticionGet the petition
+     * @return string[] with the response, where to find the file, and the myme type
+     */
     private static String[] soportado(String peticionGet) {
         String[] ans = new String[3];
         if (peticionGet.endsWith(".png")) {
@@ -159,6 +178,16 @@ public class worker implements Runnable {
 
     }
 
+    /**
+     * Este metodo responde la peticion al cliente
+     * @param out printwriter
+     * @param dataOut bufferedoutputstream
+     * @param response espuesta
+     * @param type mime type
+     * @param code codigo http
+     * @param filePath path del archivo
+     * @param outS outputstream
+     */
     private static void respond(PrintWriter out, BufferedOutputStream dataOut, File response, String type, String code,
             String filePath, OutputStream outS) {
         String header = "HTTP/1.1 " + code + "\r\n" + "Access-Control-Allow-Origin: *\r\n" + "Content-type: " + type
@@ -191,6 +220,7 @@ public class worker implements Runnable {
                 out.println(result);
                 out.flush();
                 out.close();
+                reader.close();
             }
         } catch (Exception e) {
             System.out.println("erro en envio");
@@ -201,24 +231,4 @@ public class worker implements Runnable {
 
     }
 
-    private static void respond(PrintWriter out, String response, String code) {
-        String header = "HTTP/1.1 " + code + "\r\n" + "Access-Control-Allow-Origin: *\r\n"
-                + "Content-type: text/html+\r\n";
-        Gson gson = new Gson();
-        try {
-            header += "\r\n";
-            System.out.println("respuesta "+gson.toJson(response));
-            out.println(gson.toJson(header));
-            out.println(response);
-            out.flush();
-            out.close();
-
-        } catch (Exception e) {
-            System.out.println("erro en envio");
-            System.out.println(e);
-        }
-        out.flush();
-        out.close();
-
-    }
 }

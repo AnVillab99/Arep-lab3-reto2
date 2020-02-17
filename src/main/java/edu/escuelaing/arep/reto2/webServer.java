@@ -11,6 +11,10 @@ public class webServer {
     
     static int PORT;
     static db db;
+    /**
+     * This is the main method of the app. This method receives initially the clients petitions and manages 
+     * them through threads
+     */
     public static void main(String[] args) throws IOException {
         PORT = getPort();
         //Gson gson = new Gson();
@@ -28,7 +32,7 @@ public class webServer {
                 clientSocket = serverSocket.accept();
                 System.out.println("Conectado");
                 
-                Thread t1 = new Thread(new worker(clientSocket,"d"));
+                Thread t1 = new Thread(new worker(clientSocket));
                 t1.start();
                 
                 
@@ -46,6 +50,10 @@ public class webServer {
         
 
     }
+    /**
+     * This method return the port where the app works
+     * @return
+     */
 
     static int getPort() {
         if (System.getenv("PORT") != null) {
@@ -54,5 +62,4 @@ public class webServer {
         return 4567; //returns default port if heroku-port isn't set
         }
 
-   
 }
